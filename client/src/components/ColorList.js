@@ -6,7 +6,7 @@ const initialColor = {
    code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors, history }) => {
+const ColorList = ({ colors, updateColors }) => {
    console.log(colors);
    const [editing, setEditing] = useState(false);
    const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -21,15 +21,6 @@ const ColorList = ({ colors, updateColors, history }) => {
       // Make a put request to save your updated color
       // think about where will you get the id from...
       // where is is saved right now?
-
-      // const colorIdx = colors.findIndex(color => color.id === colorToEdit.id);
-      
-      // const colorsEnd = colors.slice(colorIdx+1 );
-      // const newColors = [
-      //    colorsStart,
-      //    colorToEdit,
-      //    colorsEnd
-      // ];
 
       //close editing form
       setEditing(false);
