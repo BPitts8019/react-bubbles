@@ -6,7 +6,7 @@ const initialColor = {
    code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors, updateColors, history }) => {
    console.log(colors);
    const [editing, setEditing] = useState(false);
    const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -45,11 +45,11 @@ const ColorList = ({ colors, updateColors }) => {
       });
 
       console.log(newColors.slice(colorIdx));
-      newColors = [].concat(
-         newColors.slice(0,colorIdx),
-         [colorToEdit],
-         newColors.slice(colorIdx)
-      );
+      newColors = [
+         ...newColors.slice(0,colorIdx),
+         colorToEdit,
+         ...newColors.slice(colorIdx)
+      ];
 
       axios()
          .put(`/api/colors/${colorToEdit.id}`, colorToEdit)
@@ -63,6 +63,20 @@ const ColorList = ({ colors, updateColors }) => {
 
    const deleteColor = color => {
       // make a delete request to delete this color
+      const prevColors = [...colors];
+      updateColors(colors.filter(c => c.id !== color.id));
+      
+      axios()
+         .delete(`/api/colors/${colorToEdit.id}`)
+         .then(response => {
+            console.log(`Deleting ${color.color}...`);
+            console.log(response);
+            console.log(`${color.color} has been deleted.`);
+         })
+         .catch(err => {
+            console.error(err.response);
+            updateColors(prevColors);
+         })
    };
 
    return (
