@@ -6,7 +6,7 @@ function PrivateRoute ({component: Component, ...props}) {
    return (
       <Route {...props} render={renderProps => {
          if (getToken()) {
-            <Component {...props} />
+            return <Component {...props} />
          }
 
          return <Redirect to="/login" />;
