@@ -10,7 +10,7 @@ export function clearToken () {
    localStorage.removeItem("user-token");
 }
 
-export default function axiosWithAuth () {
+export function axiosWithAuth () {
    return axios.create({
       baseURL: "http://localhost:5000",
       headers: {
