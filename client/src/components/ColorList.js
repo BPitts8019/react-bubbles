@@ -55,14 +55,14 @@ const ColorList = ({ colors, updateColors }) => {
    const deleteColor = color => {
       // make a delete request to delete this color
       const prevColors = [...colors];
-      updateColors(colors.filter(c => c.id !== color.id));
       
       axios()
-         .delete(`/api/colors/${colorToEdit.id}`)
-         .then(response => {
-            console.log(`Deleting ${color.color}...`);
-            console.log(response);
-            console.log(`${color.color} has been deleted.`);
+      .delete(`/api/colors/${colorToEdit.id}`)
+      .then(response => {
+         updateColors(colors.filter(c => c.id !== color.id));
+         console.log(`Deleting ${color.color}...`);
+         console.log(response);
+         console.log(`${color.color} has been deleted.`);
          })
          .catch(err => {
             console.error(err.response);
